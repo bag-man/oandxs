@@ -8,7 +8,7 @@
 An expanding game of O's and X's where the placement of your move dictates where
 your opponent can go in a higher layer of O's and X's
 
-[You Can See It Live Here!](https://oandxs-.herrokuapp.com/)
+[You Can See It Live Here!](https://oandxs-.herokuapp.com/)
 
 ### Building
 
