@@ -18,8 +18,11 @@
     "lint": "./node_modules/.bin/eslint -f unix .",
     "postinstall": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
+  "engines": { 
+    "node": "6.9.0"
+  }
+  "author": "Owen Garland, Xander Barnes, Nick Dart, Cormac Brady",
+  "license": "GPLv3",
   "devDependencies": {
     "codecov": "^1.0.1",
     "eslint": "^2.3.0",
