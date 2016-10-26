@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "npm run base-test; rm -rf coverage/",
-    "build-css": "stylus assets/stylesheets/index.styl -o assets/build/css",
-    "watch-css": "stylus assets/stylesheets/index.styl -o assets/build/css -w",
+    "build-css": "./node_modules/stylus/bin/stylus assets/stylesheets/index.styl -o assets/build/css",
+    "watch-css": "./node_modules/stylus/bin/stylus assets/stylesheets/index.styl -o assets/build/css -w",
     "build-js": "./node_modules/.bin/webpack -p",
     "watch-js": "./node_modules/.bin/webpack --watch",
     "clean": "rm -rf assets/build/css/ && rm -rf assets/build/js/ && mkdir -p assets/build/css && mkdir -p assets/build/js",
@@ -17,7 +17,6 @@
     "travis": "npm run base-test && ./node_modules/.bin/codecov",
     "lint": "./node_modules/.bin/eslint -f unix .",
     "postinstall": "npm run build"
-
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +34,7 @@
     "istanbul": "^1.0.0-alpha.2",
     "mocha": "^3.1.2",
     "nodemon": "^1.11.0",
+    "stylus": "^0.54.5",
     "webpack": "^1.13.2"
   },
   "dependencies": {
