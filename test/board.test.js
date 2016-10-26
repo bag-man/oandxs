@@ -62,6 +62,7 @@ describe('Board', () => {
       done()
     })
   })
+
   describe('Visual', () => {
     it('Should show three layers of boards', (done) => {
       board = new Board(2)
