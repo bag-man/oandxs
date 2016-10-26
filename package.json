@@ -16,7 +16,7 @@
     "base-test": "npm run lint && ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --compilers js:babel-register",
     "travis": "npm run base-test && ./node_modules/.bin/codecov",
     "lint": "./node_modules/.bin/eslint -f unix .",
-    "postinstall": "webpack -p --config ./webpack.prod.config.js --progress"
+    "postinstall": "webpack -p --config ./webpack-prod.config.js --progress"
 
   },
   "author": "",
