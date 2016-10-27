@@ -1,13 +1,15 @@
 extend default
 
 block content 
-  +board([2, 1, 0])
+  - let numLayers = 1
+  .masterboard.container
+    +board(numLayers)
 
-mixin board(layers)
-  each layer in layers
-    .board
-      each row in [0,1,2]
-        .horizontal.row
-          each column in [0,1,2]
-            .vertical.container.col-xs-4(id = row*3 + column)
+mixin board(layer)
+  .board
+    each i in new Array(3)
+      .row.horizontal(class='horizontal-' + layer)
+        each i in new Array(3)
+          .col-md-4.vertical(class='vertical-' + layer)
+            if layer !== 0 
               +board(layer - 1)
