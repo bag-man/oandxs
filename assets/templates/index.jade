@@ -1,4 +1,13 @@
 extend default
 
 block content 
-  h3 Hello World!
+  +board([2, 1, 0])
+
+mixin board(layers)
+  each layer in layers
+    .board
+      each row in [0,1,2]
+        .horizontal.row
+          each column in [0,1,2]
+            .vertical.container.col-xs-4(id = row*3 + column)
+              +board(layer - 1)

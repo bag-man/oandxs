@@ -1,2 +1,24 @@
-h3
-  color: red
+.content
+  cursor default
+  margin 0 auto
+  width 540px
+
+.board
+  // border-style solid
+  // border-width 6px
+
+.horizontal
+  height 180px
+
+for row in 1 2
+  .horizontal:nth-child({row})
+    box-shadow 0px 3px black
+
+.vertical
+  margin 0 auto
+  width 180px
+  height 100%
+
+for row in 1 2
+  .vertical:nth-child({row})
+    box-shadow 3px 0px black
