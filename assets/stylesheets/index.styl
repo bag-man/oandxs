@@ -1,11 +1,6 @@
-.content
-  margin 0 auto
-  width 1000px
-  height 1000px
-
 .masterboard
-  height 666px
   padding 0 !important
+  margin 0 !important
 
 .board
   padding 0px 
@@ -21,14 +16,36 @@
 for row in 1 2
   for layer in 0 1 2 3 4 5 
     .horizontal-{layer}:nth-child({row})
-      box-shadow 0px 1px black
       if layer == 0
-        height 10vh
+        height 2vh
+
+      /* This is bad and Owen feels bad. Xander is fine with it. */
+      if layer == 0
+        box-shadow 0px 1px black
+      if layer == 1
+        box-shadow 0px 3px red
+      if layer == 2
+        box-shadow 0px 5px green
+      if layer == 3
+        box-shadow 0px 7px blue
+      if layer == 4
+        box-shadow 0px 9px yellow
 
 for row in 1 2 
   for layer in 0 1 2 3 4 5 
     .vertical-{layer}:nth-child({row})
       box-shadow 1px 0px black
       if layer == 0
-        height 10vh
+        height 2vh
 
+      /* This is bad and Owen feels bad. Xander is fine with it. */
+      if layer == 0
+        box-shadow 1px 0px black
+      if layer == 1
+        box-shadow 3px 0px red
+      if layer == 2
+        box-shadow 5px 0px green
+      if layer == 3
+        box-shadow 7px 0px blue
+      if layer == 4
+        box-shadow 9px 0px yellow
