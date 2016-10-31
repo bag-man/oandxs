@@ -1,14 +1,10 @@
 class Socket {
   constructor (io) {
     this.socket = io.connect('/')
-
-    this.socket.on('foo', (data) => {
-      console.log('foo: ', data)
-    })
   }
 
-  ping (data) {
-    this.socket.emit('foo', data)
+  move (data) {
+    this.socket.emit('movePlayed', data)
   }
 }
 

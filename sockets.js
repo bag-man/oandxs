@@ -5,12 +5,11 @@ module.exports = (server) => {
 
   io.sockets.on('connection', (socket) => {
     console.log(socket.id + ': client connected')
-    socket.emit('foo', 'bar')
 
     socket.on('error', console.log)
 
-    socket.on('foo', (data) => {
-      console.log('foo: ' + data)
+    socket.on('movePlayed', (data) => {
+      console.log('received move: ' + data)
     })
 
     socket.on('disconnect', () => {
