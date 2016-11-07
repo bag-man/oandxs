@@ -6,7 +6,7 @@ function getPosition (cell) {
   let position = []
   getCell(cell)
 
-  function getCell(cell) {
+  function getCell (cell) {
     position.push($(cell).attr('cell'))
     cell = $(cell).parent().closest('.vertical')
     if ($(cell).attr('class') === undefined) return
