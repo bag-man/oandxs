@@ -13,7 +13,7 @@ function getPosition (cell) {
     getCell(cell)
   }
 
-  return position
+  return position.reverse()
 }
 
 $('.vertical-0').on('click', (cell) => {
