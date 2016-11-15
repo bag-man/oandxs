@@ -8,12 +8,14 @@ class Game {
   }
 
   nextAvailableMove () {
-    return this.lastMove.splice(0, 1)
+    let nextMove = this.lastMove.slice(0)
+    nextMove.splice(0, 1)
+    return nextMove
   }
 
   doMove (pos, marker) {
     this.lastMove = pos
-    this.board.playMove(pos, marker)
+    this.board.playMove(pos.slice(0), marker)
   }
 
 }
