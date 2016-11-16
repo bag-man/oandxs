@@ -1,24 +1,25 @@
-const socket = require('socket.io')
+const Socket = require('socket.io')
     , Game = require('./game')
 
 module.exports = (server) => {
-  let io = socket.listen(server)
-    , rooms = []
+  let io = Socket.listen(server)
 
   io.sockets.on('connection', (socket) => {
-    if (rooms.length <= 3) {
-      let room = rooms.push(rooms.length + 1)
-      console.log('roomname ' + room)
-      socket.join(room)
-      socket.emit('room', { room })
-    } else {
-      socket.emit('room', { room: 'Server Full :(' })
-    }
 
     console.log(socket.id + ': client connected')
+
     let game = new Game(2)
 
     socket.on('error', console.log)
+
+    socket.on('join', function (room) {
+      if (io.sockets.adapter.rooms[room] && io.sockets.adapter.rooms[room].length < 2) {
+        socket.join(room)
+        io.sockets.in(room).emit('joined', socket.id + ' has joined')
+      } else {
+        socket.emit('joined', 'Room full :(')
+       }
+    })
 
     socket.on('movePlayed', (data) => {
       console.log('received move: ' + data)
