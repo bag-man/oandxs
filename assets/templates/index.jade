@@ -1,15 +1,14 @@
 extend default
 
-block content 
+block content
   - let numLayers = 2
-  .masterboard.container
+  .board
     +board(numLayers)
 
-mixin board(layer)
-  .board
-    each i in [ 1, 2, 3 ]
-      .row.horizontal(class='horizontal-' + layer)
-        each j in [ 1, 2, 3]
-          .col-md-4.vertical(class='vertical-' + layer, cell=(((i-1)*3)+j)-1, layer=layer)
-            if layer !== 0 
-              +board(layer - 1)
+mixin board(layers)
+    - for (var row = 0; row < 3; row++)
+        .board-row
+          - for (var col = 0; col < 3; col++)
+            .board-cell(class='board-cell_' + layers % 3, data=(row * 3) + col)
+              - if (layers !== 0)
+                +board(layers - 1)
