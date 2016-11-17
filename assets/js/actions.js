@@ -19,7 +19,7 @@ class Actions {
     let selector = ''
 
     data.move.forEach((item) => {
-      let x = (item % 3) +1
+      let x = (item % 3) + 1
         , y = (Math.floor(item / 3)) + 1
       selector += ' > div > div:nth-child(' + y + ') > div:nth-child(' + x + ')'
     })
