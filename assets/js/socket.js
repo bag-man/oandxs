@@ -2,6 +2,7 @@ class Socket {
 
   constructor (io) {
     this.socket = io.connect('/')
+    this.room = null
 
     this.socket.on('connect', () => {
       this.room = this.socket.io.engine.id

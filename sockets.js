@@ -1,5 +1,6 @@
 const Socket = require('socket.io')
     , Game = require('./game')
+    , LAYERS = 1
 
 module.exports = (server) => {
   let io = Socket.listen(server)
@@ -8,7 +9,7 @@ module.exports = (server) => {
 
     console.log(socket.id + ': client connected')
 
-    let game = new Game(2)
+    let game = new Game(LAYERS)
 
     socket.on('error', console.log)
 
@@ -32,6 +33,7 @@ module.exports = (server) => {
     })
 
     socket.on('disconnect', () => {
+      io.sockets.in(socket.room).emit('left', socket.id + ' has left')
       console.log(socket.id + ': client disconnected')
     })
   })

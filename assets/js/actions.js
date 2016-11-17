@@ -4,14 +4,27 @@ class Actions {
     this.socket = socket.socket
     this.socket.on('playedMove', this.playedMove)
     this.socket.on('joined', this.joined)
+    this.socket.on('left', this.left)
   }
 
   joined (data) {
     console.log(data)
   }
 
+  left (data) {
+    console.log(data)
+  }
+
   playedMove (data) {
-    console.log(111, data)
+    let selector = ''
+
+    data.move.forEach((item) => {
+      let x = (item % 3) +1
+        , y = (Math.floor(item / 3)) + 1
+      selector += ' > div > div:nth-child(' + y + ') > div:nth-child(' + x + ')'
+    })
+
+    $('body > main > div ' + selector).append('<p>x</p>')
   }
 
   move (data) {
