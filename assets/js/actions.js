@@ -15,7 +15,7 @@ class Actions {
   }
 
   move (data) {
-    this.socket.emit('movePlayed', data)
+    this.socket.emit('movePlayed', this.getPosition(data))
   }
 
   getPosition (cell) {

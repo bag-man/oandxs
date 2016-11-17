@@ -5,6 +5,5 @@ let socket = new Socket(window.io)
   , action = new Action(socket)
 
 $('.vertical-0').on('click', (cell) => {
-  let position = action.getPosition(cell.target)
-  action.move(position)
+  action.move(cell.target)
 })
