@@ -1,25 +1,21 @@
 class Socket {
+
   constructor (io) {
     this.socket = io.connect('/')
 
-    this.socket.on('nextMove', (data) => { console.log(data) })
-    this.socket.on('joined', (data) => { console.log(data) })
-
     this.socket.on('connect', () => {
+      this.room = this.socket.io.engine.id
+
       if (window.location.hash) {
-        let room = window.location.hash.substring(1)
-        this.socket.emit('join', room)
+        this.room = window.location.hash.substring(1)
       } else {
-        let room = this.socket.io.engine.id
-        window.location.hash = room
-        this.socket.emit('join', room)
+        window.location.hash = this.room
       }
+
+      this.socket.emit('join', this.room)
     })
   }
 
-  move (data) {
-    this.socket.emit('movePlayed', data)
-  }
 }
 
 module.exports = Socket

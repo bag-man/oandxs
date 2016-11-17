@@ -15,6 +15,7 @@ module.exports = (server) => {
     socket.on('join', function (room) {
       if (io.sockets.adapter.rooms[room] && io.sockets.adapter.rooms[room].length < 2) {
         socket.join(room)
+        socket.room = room
         io.sockets.in(room).emit('joined', socket.id + ' has joined')
       } else {
         socket.emit('joined', 'Room full :(')
@@ -22,9 +23,12 @@ module.exports = (server) => {
     })
 
     socket.on('movePlayed', (data) => {
-      console.log('received move: ' + data)
       game.doMove(data, 'x')
-      socket.emit('nextMove', game.nextAvailableMove())
+      io.sockets.in(socket.room).emit('playedMove',
+        { move: data
+        , next: game.nextAvailableMove()
+        }
+      )
     })
 
     socket.on('disconnect', () => {

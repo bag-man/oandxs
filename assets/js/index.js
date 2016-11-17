@@ -1,23 +1,10 @@
 const Socket = require('./socket')
+const Action = require('./actions')
 
 let socket = new Socket(window.io)
-
-function getPosition (cell) {
-  let position = []
-  getCell(cell)
-
-  function getCell (cell) {
-    position.push($(cell).attr('cell'))
-    cell = $(cell).parent().closest('.vertical')
-    if ($(cell).attr('class') === undefined) return
-    getCell(cell)
-  }
-
-  return position.reverse()
-}
+  , action = new Action(socket)
 
 $('.vertical-0').on('click', (cell) => {
-  $(cell.target).append('<p>X</p>')
-  let position = getPosition(cell.target)
-  socket.move(position)
+  let position = action.getPosition(cell.target)
+  action.move(position)
 })
