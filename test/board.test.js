@@ -1,5 +1,5 @@
 const assert = require('assert')
-    , Board = require('../board')
+    , Board = require('../app/board')
 
 describe('Board', () => {
 
