@@ -2,7 +2,7 @@
   "name": "oandxs",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app/server.js",
   "scripts": {
     "test": "npm run base-test; rm -rf coverage/",
     "build-css": "./node_modules/stylus/bin/stylus assets/stylesheets/index.styl -o assets/build/css",
