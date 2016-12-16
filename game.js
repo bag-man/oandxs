@@ -5,8 +5,6 @@ class Game {
   constructor (layers) {
     this.board = new Board(layers)
     this.lastMove = []
-    this.players = []
-    this.tick = 1
   }
 
   nextAvailableMove () {
@@ -15,15 +13,9 @@ class Game {
     return nextMove
   }
 
-  doMove (pos, marker) {
-    this.lastMove = pos
-    this.board.playMove(pos.slice(0), marker)
-    this.tick ^= 1
-    return this.players[this.tick]
-  }
-
-  addPlayer (playerId) {
-    this.players.push(playerId)
+  doMove (data) {
+    this.lastMove = data.position
+    this.board.playMove(data.position.slice(0), data.marker)
   }
 
 }

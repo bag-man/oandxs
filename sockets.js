@@ -22,19 +22,18 @@ module.exports = (server) => {
           room.game = new Game(LAYERS)
         }
 
-        room.game.addPlayer(socket.id)
         io.sockets.in(roomId).emit('joined', room.length)
       } else {
         socket.emit('joined', 'Room full :(')
       }
     })
-
     socket.on('movePlayed', (data) => {
-      let room = io.sockets.adapter.rooms[socket.room]
-        , player = room.game.doMove(data, 'x')
 
-      io.to(player).emit('playedMove',
-        { move: data
+      let room = io.sockets.adapter.rooms[socket.room]
+      room.game.doMove(data)
+
+      io.to(socket.room).emit('playedMove',
+        { move: data.position
         , next: room.game.nextAvailableMove()
         }
       )

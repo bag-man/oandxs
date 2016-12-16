@@ -2,16 +2,24 @@ class Actions {
 
   constructor (socket) {
     this.socket = socket.socket
-    this.socket.on('playedMove', this.playedMove)
-    this.socket.on('joined', this.joined)
-    this.socket.on('left', this.left)
+    this.turn = false
+    this.start = false
+    this.marker = 'O'
+    this.opponent = 'X'
+    this.socket.on('playedMove', this.playedMove.bind(this))
+    this.socket.on('joined', this.joined.bind(this))
+    this.socket.on('left', this.left.bind(this))
   }
 
   joined (data) {
     if (data < 2) {
       console.log('Send this URL to your opponent: ' + window.location.href)
+      this.turn = true
+      this.marker = 'X'
+      this.opponent = 'O'
     } else {
       console.log('Player 2 joined, make your move')
+      this.start = true
     }
   }
 
@@ -28,11 +36,15 @@ class Actions {
       selector += ' > div > div:nth-child(' + y + ') > div:nth-child(' + x + ')'
     })
 
-    $('body > main > div ' + selector).append('<p>x</p>')
+    let mark = this.turn ? this.marker : this.opponent
+    $('body > main > div ' + selector).append('<p>' + mark + '</p>')
+    this.turn = !this.turn
   }
 
   move (data) {
-    this.socket.emit('movePlayed', this.getPosition(data))
+    if (this.turn && this.start) {
+      this.socket.emit('movePlayed', { marker: this.marker, position: this.getPosition(data) })
+    }
   }
 
   getPosition (cell) {

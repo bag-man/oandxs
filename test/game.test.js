@@ -12,7 +12,7 @@ describe('Game', () => {
 
   describe('nextAvailableMove', () => {
     it('Should return array of available moves', (done) => {
-      game.doMove([4, 4], 'x')
+      game.doMove({ position: [4, 4], marker: 'x' })
       assert(game.nextAvailableMove(), [4], 'Incorrect next move location')
       done()
     })
