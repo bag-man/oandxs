@@ -9,25 +9,33 @@ module.exports = (server) => {
 
     console.log(socket.id + ': client connected')
 
-    let game = new Game(LAYERS)
-
     socket.on('error', console.log)
 
-    socket.on('join', function (room) {
-      if (io.sockets.adapter.rooms[room] && io.sockets.adapter.rooms[room].length < 2) {
-        socket.join(room)
-        socket.room = room
-        io.sockets.in(room).emit('joined', socket.id + ' has joined')
+    socket.on('join', function (roomId) {
+      let room = io.sockets.adapter.rooms[roomId]
+      if (room && room.length < 2) {
+
+        socket.join(roomId)
+        socket.room = roomId
+
+        if (room.length === 1) {
+          room.game = new Game(LAYERS)
+        }
+
+        room.game.addPlayer(socket.id)
+        io.sockets.in(roomId).emit('joined', room.length)
       } else {
         socket.emit('joined', 'Room full :(')
-       }
+      }
     })
 
     socket.on('movePlayed', (data) => {
-      game.doMove(data, 'x')
-      io.sockets.in(socket.room).emit('playedMove',
+      let room = io.sockets.adapter.rooms[socket.room]
+        , player = room.game.doMove(data, 'x')
+
+      io.to(player).emit('playedMove',
         { move: data
-        , next: game.nextAvailableMove()
+        , next: room.game.nextAvailableMove()
         }
       )
     })

@@ -8,7 +8,11 @@ class Actions {
   }
 
   joined (data) {
-    console.log(data)
+    if (data < 2) {
+      console.log('Send this URL to your opponent: ' + window.location.href)
+    } else {
+      console.log('Player 2 joined, make your move')
+    }
   }
 
   left (data) {
