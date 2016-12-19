@@ -27,8 +27,8 @@ module.exports = (server) => {
         socket.emit('joined', 'Room full :(')
       }
     })
-    socket.on('movePlayed', (data) => {
 
+    socket.on('movePlayed', (data) => {
       let room = io.sockets.adapter.rooms[socket.room]
       room.game.doMove(data)
 
