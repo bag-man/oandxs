@@ -139,7 +139,6 @@ describe('Board', () => {
                   , box: []
                   }
         board.updateBoard(winData)
-
         assert(winData.winner, 'X', 'marker does not match update data')
         done()
       })
