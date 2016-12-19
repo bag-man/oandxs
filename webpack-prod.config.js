@@ -4,12 +4,12 @@ const webpack = require('webpack')
 module.exports = {
   devtool: 'source-map'
 , entry: [
-    './assets/js/index'
+    '.app/assets/js/index'
   ]
 , output: {
-    path: path.join(__dirname, 'assets', 'build', 'js')
+    path: path.join(__dirname, 'app', 'assets', 'build', 'js')
   , filename: 'bundle.js'
-  , publicPath: '/assets/build/js/'
+  , publicPath: '/app/assets/build/js/'
   }
 , plugins: [
     new webpack.optimize.DedupePlugin()
@@ -27,7 +27,7 @@ module.exports = {
       , query: {
           presets: [ 'es2015' ]
         }
-      , include: path.join(__dirname, 'assets/js')
+      , include: path.join(__dirname, 'app/assets/js')
       }
     ]
   }

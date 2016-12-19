@@ -2,12 +2,12 @@ const path = require('path')
 
 module.exports = {
   entry: [
-    './assets/js/index'
+    './app/assets/js/index'
   ]
 , output: {
-    path: path.join(__dirname, 'assets', 'build', 'js')
+    path: path.join(__dirname, 'app', 'assets', 'build', 'js')
   , filename: 'bundle.js'
-  , publicPath: '/assets/build/js/'
+  , publicPath: '/app/assets/build/js/'
   }
   , module: {
     loaders: [
@@ -16,7 +16,7 @@ module.exports = {
       , query: {
           presets: [ 'es2015' ]
         }
-      , include: path.join(__dirname, 'assets/js')
+      , include: path.join(__dirname, 'app/assets/js')
       }
     ]
   }

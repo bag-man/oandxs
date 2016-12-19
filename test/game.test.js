@@ -1,5 +1,5 @@
 const assert = require('assert')
-    , Game = require('../game')
+    , Game = require('../app/game')
 
 describe('Game', () => {
 
