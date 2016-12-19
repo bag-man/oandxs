@@ -13,9 +13,9 @@ class Game {
     return nextMove
   }
 
-  doMove (pos, marker) {
-    this.lastMove = pos
-    this.board.playMove(pos.slice(0), marker)
+  doMove (data) {
+    this.lastMove = data.position
+    this.board.playMove(data.position.slice(0), data.marker)
   }
 
 }
