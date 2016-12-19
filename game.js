@@ -18,6 +18,10 @@ class Game {
     this.board.playMove(data.position.slice(0), data.marker)
   }
 
+  update (data) {
+    this.board.updateBoard(data)
+  }
+
 }
 
 module.exports = Game

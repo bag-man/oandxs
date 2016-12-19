@@ -28,8 +28,12 @@ class Actions {
   }
 
   playedMove (data) {
-    let selector = ''
+    this.markSquare(data)
+    this.turn = !this.turn
+  }
 
+  markSquare (data) {
+    let selector = ''
     data.move.forEach((item) => {
       let x = (item % 3) + 1
         , y = (Math.floor(item / 3)) + 1
@@ -38,7 +42,6 @@ class Actions {
 
     let mark = this.turn ? this.marker : this.opponent
     $('body > main > div ' + selector).append('<p>' + mark + '</p>')
-    this.turn = !this.turn
   }
 
   move (data) {

@@ -31,9 +31,14 @@ module.exports = (server) => {
     socket.on('movePlayed', (data) => {
       let room = io.sockets.adapter.rooms[socket.room]
       room.game.doMove(data)
-
+      let winData = { winner: '_'
+                    , location: []
+                    , box: []
+                    }
+      room.game.update(winData)
       io.to(socket.room).emit('playedMove',
         { move: data.position
+        , boxWin: winData
         , next: room.game.nextAvailableMove()
         }
       )
