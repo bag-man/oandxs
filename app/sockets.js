@@ -13,8 +13,8 @@ module.exports = (server) => {
 
     socket.on('join', function (roomId) {
       let room = io.sockets.adapter.rooms[roomId]
-      if (room && room.length < 2) {
 
+      if (room && room.length < 2) {
         socket.join(roomId)
         socket.room = roomId
 
@@ -30,10 +30,14 @@ module.exports = (server) => {
 
     socket.on('movePlayed', (data) => {
       let room = io.sockets.adapter.rooms[socket.room]
+        , winData = { winner: '_', location: [], box: [] }
+
       room.game.doMove(data)
+      room.game.update(winData)
 
       io.to(socket.room).emit('playedMove',
         { move: data.position
+        , boxWin: winData
         , next: room.game.nextAvailableMove()
         }
       )

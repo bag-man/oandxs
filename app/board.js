@@ -17,42 +17,59 @@ class Board {
     }
   }
 
-  updateBoard () {
-    if (this.touched) {
+  updateBoard (data) {
       if (this.layer !== 0) {
         for (let i = 0; i < 9; i++) {
-          this.board[i] = this.subBoards[i].updateBoard()
+          if (this.subBoards[i].updateBoard(data)) {
+            this.board[i] = data.winner
+            data.box.push(i)
+          }
         }
       }
-      this.winner = this.winBoard()
+
+      let win = false
+
+      if (this.winner === '_') {
+        if (this.winBoard(data)) {
+          this.winner = data.winner
+          win = true
+        }
+      }
+
       this.touched = false
-    }
-    return this.winner
+
+    return win
   }
 
-  winBoard () {
-    let winConditions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
-      , marker = '_'
+  winBoard (data) {
+    if (this.touched) {
+      let winConditions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
+        , marker = '_'
 
-    for (let i = 0; i < 8; i++) {
-      let condition = winConditions[i]
+      for (let i = 0; i < 8; i++) {
+        let condition = winConditions[i]
 
-      if (this.board[condition[0]] === 'x') {
-        marker = 'x'
-      }
-      if (this.board[condition[0]] === 'O') {
-        marker = 'O'
-      }
+        if (this.board[condition[0]] === 'X') {
+          marker = 'X'
+        }
 
-      if (marker !== '_' && this.board[condition[1]] === marker && this.board[condition[2]] === marker) {
-        return marker
+        if (this.board[condition[0]] === 'O') {
+          marker = 'O'
+        }
+
+        if (marker !== '_' && this.board[condition[1]] === marker && this.board[condition[2]] === marker) {
+          data.location.push(condition)
+          data.winner = marker
+          return true
+        }
       }
     }
-    return '_'
+    return false
   }
 
   playMove (pos, marker) {
     this.touched = true
+
     if (this.layer !== 0) {
       let currentPos = pos[0]
       pos.splice(0, 1)
