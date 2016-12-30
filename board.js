@@ -2,19 +2,20 @@
 /**
  * Enum of player values
  * @readonly
- * @enum {string} player
+ * @enum {string}
  */
-const player = {
+const PLAYER = {
   // This looks Ugly! https://github.com/jsdoc3/jsdoc/issues/446
 
-     /** An Unclaimed Cell */            UNCLAIMED: '_' 
-   , /** A Cell claimed by player 'x' */ X: 'x'         
-   , /** A Cell clained by player 'o' */ O: 'O'         
+     /** An Unclaimed Cell */ UNCLAIMED: '_'
+   , /** A Cell claimed by player 'x' */ X: 'x'
+   , /** A Cell clained by player 'o' */ O: 'O'
 }
 
 /**
  * @typedef {(number[])} Position
- * A position in an n-deep board, where the length of the array is n. Each element in the array denotes a cell with in a board. Valid cell index is between 0 and 9 as shown;
+ * A position in an n-deep board, where the length of the array is n.
+ * Each element in the array denotes a cell with in a board. Valid cell index is between 0 and 9 as shown;
  * <pre>
  * +---|---|---|
  * | 0 | 1 | 2 |
@@ -31,46 +32,35 @@ const player = {
  */
 class Board {
 
+  /** @member {player[]} Board#board the board array, holding win positions. */
+  /** @member {number} Board#layer the number of layers deep the board is */
+  /** @member {Board[]} Board#subBoards an array containing the boards in the next layer down */
+  /** @member {boolean} Board#winner the winning player. */
+  /** @member {boolean} Board#touched if the board has been touched */
+
   /**
    * @constructor
    * @param {!number} layer Number of layers deep
    */
   constructor (layer) {
-    
-    /**
-     * @member {number} Board#layer the number of layers deep the board is
-     */
-    this.layer = layer
 
-    /**
-     * @member {player[]} Board#board the board array, holding win positions.
-     */
+    this.layer = layer
     this.board = Array.apply(null, Array(9)).map(() => { return Board.player.UNCLAIMED })
 
-    /**
-     * @member {Board[]} Board#subBoards an array containing the boards in the next layer down
-     */
     if (this.layer !== 0) {
       this.subBoards = Array.apply(null, Array(9)).map(() => { return new Board(this.layer - 1) })
     }
 
-    /**
-     * @member {boolean} Board#winner the winning player.
-     */
     this.winner = Board.player.UNCLAIMED
-
-    /**
-     * @member {boolean} Board#touched if the board has been touched
-     */
     this.touched = false
   }
 
   /**
    * Get the player Enum for comparison
-   * @return {player} the Player Enum
-   */ 
+   * @return {PLAYER} the Player Enum
+   */
   static get player () {
-    return player
+    return PLAYER
   }
 
   /**
@@ -86,7 +76,7 @@ class Board {
   /**
    * Update the board (and sub boards) to find a winner
    * @return {string} the winning player as a string of either 'x', 'O' or '_'
-   */ 
+   */
   updateBoard () {
     if (this.touched) {
       if (this.layer !== 0) {
@@ -102,6 +92,7 @@ class Board {
 
   /**
    * check win conditions for each cell in this (and only this) level
+   * @return {PLAYER} the player that has won the cell
    */
   winBoard () {
     let winConditions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
@@ -117,7 +108,9 @@ class Board {
         marker = Board.player.O
       }
 
-      if (marker !== Board.player.UNCLAIMED && this.board[condition[1]] === marker && this.board[condition[2]] === marker) {
+      if (marker !== Board.player.UNCLAIMED &&
+          this.board[condition[1]] === marker &&
+          this.board[condition[2]] === marker) {
         return marker
       }
     }
@@ -127,7 +120,7 @@ class Board {
   /**
    * Play a move in a cell as a player
    * @param {Position} pos the position to play in
-   * @param {player} marker the player to play as
+   * @param {PLAYER} marker the player to play as
    */
   playMove (pos, marker) {
     this.touched = true
