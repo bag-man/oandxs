@@ -17,7 +17,7 @@
     "travis": "npm run base-test && ./node_modules/.bin/codecov",
     "lint": "./node_modules/.bin/eslint -f unix .",
     "postinstall": "npm run build",
-    "doc": "./node_modules/jsdoc/jsdoc.js . --destination ./docs --readme ./README.md --configure ./jsDoc-config.json --recurse . --verbose"
+    "doc": "./node_modules/jsdoc/jsdoc.js --destination ./docs --readme ./README.md --configure ./jsDoc-config.json --recurse . --verbose"
   },
   "engines": {
     "node": "6.9.0"
