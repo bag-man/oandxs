@@ -23,4 +23,9 @@ your opponent can go in a higher layer of O's and X's
 ### Testing
 
     npm run test
-    
+
+### Documentation
+
+    npm run doc
+
+JSDoc is built to the ```doc``` directory, and can be viewed in your browser

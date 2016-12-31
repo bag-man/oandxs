@@ -1,5 +1,15 @@
+
+/**
+ * Action class that binds event handlers to the socket
+ */
 class Actions {
 
+  /** @member {SocketIO} Actions#socket socketIO handler class */
+
+  /**
+   * @constructor
+   * @param {!SocketIO} SocketIO handler class
+   */
   constructor (socket) {
     this.socket = socket.socket
     this.socket.on('playedMove', this.playedMove)
