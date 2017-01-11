@@ -18,25 +18,25 @@ class Board {
   }
 
   updateBoard (data) {
-      if (this.layer !== 0) {
-        for (let i = 0; i < 9; i++) {
-          if (this.subBoards[i].updateBoard(data)) {
-            this.board[i] = data.winner
-            data.box.push(i)
-          }
+    if (this.layer !== 0) {
+      for (let i = 0; i < 9; i++) {
+        if (this.subBoards[i].updateBoard(data)) {
+          this.board[i] = data.winner
+          data.box.push(i)
         }
       }
+    }
 
-      let win = false
+    let win = false
 
-      if (this.winner === '_') {
-        if (this.winBoard(data)) {
-          this.winner = data.winner
-          win = true
-        }
+    if (this.winner === '_') {
+      if (this.winBoard(data)) {
+        this.winner = data.winner
+        win = true
       }
+    }
 
-      this.touched = false
+    this.touched = false
 
     return win
   }
